@@ -1,9 +1,7 @@
 # Dreamware Technical Task
 
 Global packages required ``` npm install webpack typescript tsd -g ```
-Then run
-* ``` npm link typescript ```
-* ``` tsd install angular ```
+Then run ``` npm link typescript ```
 
 To start server please run:
 * ``` npm install ```
