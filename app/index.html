@@ -3,9 +3,49 @@
 <head>
    <meta charset="UTF-8">
    <title>Dreamware Tech Task</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
-<body>
-   <div>Hello it's works fine!</div>
+<body ng-app="grid-app" ng-controller="gridController">
+   <div class="container">
+      <table class="table table-striped">
+         <thead>
+            <tr>
+               <th>Login</th>
+               <th>Birth date</th>
+               <th>Age</th>
+               <th>Actions</th>
+            </tr>
+         </thead>
+         <tobody>
+            <tr>
+               <td>Vitalii</td>
+               <td>14/03/96</td>
+               <td>20</td>
+               <td>
+                  <button class="btn btn-primary btn-sm">Edit</button>
+                  <button class="btn btn-danger btn-sm">Delete</button>
+               </td>
+            </tr>
+         </tobody>
+      </table>
+
+      <div id="add-user-panel">
+         <div class="row">
+            <div class="col-md-6">
+               <label for="new-login">Your login</label>
+               <input type="text" class="form-control" id="new-login" placeholder="Login">
+            </div>
+            <div class="col-md-6">
+               <label for="new-birthdate">Your Birth date</label>
+               <input type="text" class="form-control" id="new-birthdate" placeholder="Birth date">
+            </div>
+         </div>
+         <div class="action-panel clearfix">
+            <button class="btn btn-success pull-right" id="add-user-button">Add</button>
+         </div>
+      </div>
+   </div>
 
    <script src="bundle.js"></script>
 </body>
