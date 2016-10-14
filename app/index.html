@@ -6,7 +6,7 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
-<body ng-app="grid-app" ng-controller="gridController">
+<body ng-app="grid-app" ng-controller="gridController as gridCtrl">
    <div class="container">
       <table class="table table-striped">
          <thead>
@@ -18,10 +18,10 @@
             </tr>
          </thead>
          <tobody>
-            <tr>
-               <td>Vitalii</td>
-               <td>14/03/96</td>
-               <td>20</td>
+            <tr ng-repeat="user in gridCtrl.users">
+               <td>{{user.name}}</td>
+               <td>{{user.birthdate}}</td>
+               <td>{{user.age}}</td>
                <td>
                   <button class="btn btn-primary btn-sm">Edit</button>
                   <button class="btn btn-danger btn-sm">Delete</button>
@@ -31,18 +31,18 @@
       </table>
 
       <div id="add-user-panel">
-         <div class="row">
+         <div class="row" ng-show="gridCtrl.adding_user">
             <div class="col-md-6">
                <label for="new-login">Your login</label>
-               <input type="text" class="form-control" id="new-login" placeholder="Login">
+               <input type="text" class="form-control" id="new-login" placeholder="Login" ng-model="gridCtrl.newUser.name">
             </div>
             <div class="col-md-6">
                <label for="new-birthdate">Your Birth date</label>
-               <input type="text" class="form-control" id="new-birthdate" placeholder="Birth date">
+               <input type="text" class="form-control" id="new-birthdate" placeholder="Birth date" ng-model="gridCtrl.newUser.birthdate">
             </div>
          </div>
          <div class="action-panel clearfix">
-            <button class="btn btn-success pull-right" id="add-user-button">Add</button>
+            <button class="btn btn-success pull-right" id="add-user-button" ng-click="gridCtrl.addNewUser()">Add</button>
          </div>
       </div>
    </div>
