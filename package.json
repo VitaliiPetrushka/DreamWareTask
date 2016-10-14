@@ -1,0 +1,19 @@
+{
+  "name": "dreamware_tech_task",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/VitaliiPetrushka/Dreamware_tech_task.git"
+  },
+  "author": "Vitalii Petrushka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/VitaliiPetrushka/Dreamware_tech_task/issues"
+  },
+  "homepage": "https://github.com/VitaliiPetrushka/Dreamware_tech_task#readme"
+}
