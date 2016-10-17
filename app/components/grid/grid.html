@@ -10,37 +10,49 @@
          </tr>
       </thead>
       <tbody>
-         <tr ng-repeat="user in $ctrl.users" user="user" data-id="{{$ctrl.users.indexOf(user)}}">
-            <td><span ng-hide="$ctrl.editing_user">{{user.login}}</span><input type="text" class="form-control" ng-show="$ctrl.editing_user"></td>
-            <td><span ng-hide="$ctrl.editing_user">{{user.birthdate.toDateString()}}</span><input type="text" class="form-control" ng-show="$ctrl.editing_user"></td>
-            <td><span ng-hide="$ctrl.editing_user">{{user.age}}</span><input type="text" class="form-control" ng-show="$ctrl.editing_user"></td>
+         <tr ng-repeat="user in $ctrl.users" grid-row user="user">
+            <td><span ng-hide="$rowCtrl.editing_user">{{user.login}}</span><input class="form-control" type="text" ng-show="$rowCtrl.editing_user" value="{{$rowCtrl.user.login}}"></td>
+            <td><span ng-hide="$rowCtrl.editing_user">{{user.birthdate.toDateString()}}</span><input class="form-control" type="text" ng-show="$rowCtrl.editing_user" value="{{$rowCtrl.user.birthdate.toDateString()}}"></td>
+            <td><span ng-hide="$rowCtrl.editing_user">{{user.age}}</span><input class="form-control" type="text" ng-show="$rowCtrl.editing_user" value="{{$rowCtrl.user.age}}"></td>
             <td>
-               <button class="btn btn-primary btn-sm" ng-click="$ctrl.editUserInfo()" ng-hide="$ctrl.editing_user">Edit</button>
-               <button class="btn btn-success btn-sm" ng-show="$ctrl.editing_user" ng-click="$ctrl.applyEditUserInfo($event)">Accept</button>
-               <button class="btn btn-danger btn-sm">Delete</button>
+               <button ng-hide="$rowCtrl.editing_user" class="btn btn-primary btn-sm" ng-click="$rowCtrl.edit()">Edit</button>
+               <button ng-show="$rowCtrl.editing_user" class="btn btn-success btn-sm" ng-click="$rowCtrl.applyEdit()">Accept</button>
+               <button ng-hide="$rowCtrl.editing_user" class="btn btn-danger btn-sm" ng-click="$rowCtrl.delUser()">Delete</button>
+               <butto ng-show="$rowCtrl.editing_user" class="btn btn-danger btn-sm" ng-click="$rowCtrl.cancelEditing()">Cancel</butto>
             </td>
          </tr>
       </tbody>
    </table>
 
    <div id="add-user-panel">
-      <div class="row" ng-show="$ctrl.adding_user">
-         <div class="col-md-6">
-            <div class="form-group">
-               <label for="new-login">Your login</label>
-               <input type="text" class="form-control" id="new-login" placeholder="Login" ng-model="$ctrl.newUser.name">
+      <form name="user_form" novalidate>
+         <div class="row" ng-show="$ctrl.adding_user">
+            <div class="col-md-6">
+               <div class="form-group" ng-class="{
+               'has-success': user_form.login.$valid && user_form.login.$dirty,
+               'has-error':user_form.login.$invalid && user_form.login.$dirty
+               }">
+                  <label for="new-login" class="control-label">Your login</label>
+                  <input type="text" class="form-control" id="new-login" placeholder="Login" name="login" ng-model="$ctrl.newUser.login" required>
+                  <div ng-show="user_form.login.$error.required && user_form.login.$dirty" class="error-message">This field is required</div>
+               </div>
+            </div>
+            <div class="col-md-6">
+               <div class="form-group" ng-class="{
+               'has-success':user_form.birthdate.$valid && user_form.birthdate.$dirty,
+               'has-error':user_form.birthdate.$invalid && user_form.birthdate.$dirty
+               }">
+                  <label for="new-birthdate" class="control-label">Your Birth date</label>
+                  <input type="text" class="form-control" id="new-birthdate" placeholder="Birth date" name="birthdate" ng-model="$ctrl.newUser.birthdate" required ng-pattern="/^\d{4}\/(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])$/">
+                  <div ng-show="user_form.birthdate.$error.required && user_form.birthdate.$dirty" class="error-message">This field is required</div>
+                  <div ng-show="user_form.birthdate.$error.pattern && user_form.birthdate.$dirty" class="error-message">Input date in the next format yyyy/mm/dd</div>
+               </div>
             </div>
          </div>
-         <div class="col-md-6">
-            <div class="form-group">
-               <label for="new-birthdate">Your Birth date</label>
-               <input type="text" class="form-control" id="new-birthdate" placeholder="Birth date" ng-model="$ctrl.newUser.birthdate">
-            </div>
+         <div class="action-panel clearfix">
+            <button ng-show="$ctrl.adding_user" class="btn btn-danger pull-right" ng-click="$ctrl.cancelAddNewUser()">Cancel</button>
+            <button class="btn btn-success pull-right" id="add-user-button" ng-click="$ctrl.addNewUser(user_form.$valid)">Add</button>
          </div>
-      </div>
-      <div class="action-panel clearfix">
-         <button ng-show="$ctrl.adding_user" class="btn btn-danger pull-right" ng-click="$ctrl.cancelAddNewUser()">Cancel</button>
-         <button class="btn btn-success pull-right" id="add-user-button" ng-click="$ctrl.addNewUser()">Add</button>
-      </div>
+      </form>
    </div>
 </div>

@@ -6,6 +6,7 @@ const GridService = {
 function GridServiceController($http, LogService) {
    const DataTypes = { Int: "number", String: "string", Date: "Date" };
    interface User {
+      _id: number;
       login: string;
       birthdate: Date;
       age: number;
@@ -17,25 +18,32 @@ function GridServiceController($http, LogService) {
       {Name: "Age", DataType: DataTypes.Int, IsRequired: false, CalculateFrom: ["BirthDate"], Calculate: this.calculate_age}
    ];
    var data = [
-      {login: "User1", birthdate: new Date("1996/03/14"), age: 20},
-      {login: "User2", birthdate: new Date("1995/11/10"), age: 21},
-      {login: "User3", birthdate: new Date("1996/10/05"), age: 20}
+      {_id: 1, login: "User1", birthdate: new Date("1996/03/14"), age: 20},
+      {_id: 2, login: "User2", birthdate: new Date("1995/11/10"), age: 21},
+      {_id: 3, login: "User3", birthdate: new Date("1996/10/05"), age: 20}
    ];
 
    this.getUsers = function():Array<User> {
+      //API call: $http.get(url);
       return data;
    };
    this.addUser = function(user: User):void {
-      //data.push(user);
-      LogService.info("adding new user");
-      //API call: $http.post(url, body);
+      if(user) {
+         data.push(user);
+         //API call: $http.post(url, body);
+      } else {
+         LogService.error("add new user error");
+      }
    };
    this.deleteUser = function(id: number):void {
-      //data.splice(id, 1);
-      LogService.alert("Deleting user");
-      //API call: $http.delete(url);
+      if(LogService.confirm()) {
+         //API call: $http.delete(url);
+         data.forEach((value, index, arr) => {
+            if(value._id == id) arr.splice(index, 1);
+         });
+      }
    };
-   this.modifyUser = function(id: number):void {
+   this.modifyUser = function(_id:number, user: User):void {
       //API call: $http.put(url, body);
    };
    this.calculate_age = function(birthdate:string):number {

@@ -4,20 +4,23 @@ const LogService = {
 };
 
 function LogServiceController($log) {
-   this.log = function(message) {
+   this.log = (message) => {
       $log.log(message);
    };
-   this.info = function(message) {
+   this.info = (message) => {
       $log.info(message);
    };
-   this.warn = function(message) {
+   this.warn = (message) =>{
       $log.warn(message);
    };
-   this.error = function(message) {
+   this.error = (message) =>{
       $log.error(message);
    };
-   this.alert = function(message) {
+   this.alert = (message) =>{
       window.alert(message);
+   };
+   this.confirm = () => {
+     return window.confirm("Do you really want to delete user");
    }
 }
 

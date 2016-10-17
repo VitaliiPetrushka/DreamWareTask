@@ -2,7 +2,12 @@ body {
   font-family: "Roboto", sans-serif;
 }
 .container {
-  width: 45%;
+  width: 60%;
   margin: 0 auto;
+}
+.error-message {
+  margin-top: 3px;
+  margin-left: 3px;
+  color: #a94442;
 }
 
