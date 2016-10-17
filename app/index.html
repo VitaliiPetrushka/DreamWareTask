@@ -6,45 +6,10 @@
    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
 </head>
-<body ng-app="grid-app" ng-controller="gridController as gridCtrl">
+<body ng-app="grid-app">
    <div class="container">
-      <table class="table table-striped">
-         <thead>
-            <tr>
-               <th>Login</th>
-               <th>Birth date</th>
-               <th>Age</th>
-               <th>Actions</th>
-            </tr>
-         </thead>
-         <tobody>
-            <tr ng-repeat="user in gridCtrl.users">
-               <td>{{user.name}}</td>
-               <td>{{user.birthdate}}</td>
-               <td>{{user.age}}</td>
-               <td>
-                  <button class="btn btn-primary btn-sm">Edit</button>
-                  <button class="btn btn-danger btn-sm">Delete</button>
-               </td>
-            </tr>
-         </tobody>
-      </table>
-
-      <div id="add-user-panel">
-         <div class="row" ng-show="gridCtrl.adding_user">
-            <div class="col-md-6">
-               <label for="new-login">Your login</label>
-               <input type="text" class="form-control" id="new-login" placeholder="Login" ng-model="gridCtrl.newUser.name">
-            </div>
-            <div class="col-md-6">
-               <label for="new-birthdate">Your Birth date</label>
-               <input type="text" class="form-control" id="new-birthdate" placeholder="Birth date" ng-model="gridCtrl.newUser.birthdate">
-            </div>
-         </div>
-         <div class="action-panel clearfix">
-            <button class="btn btn-success pull-right" id="add-user-button" ng-click="gridCtrl.addNewUser()">Add</button>
-         </div>
-      </div>
+      <!--suppress HtmlUnknownTag -->
+      <grid></grid>
    </div>
 
    <script src="bundle.js"></script>

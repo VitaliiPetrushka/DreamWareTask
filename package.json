@@ -6,7 +6,7 @@
   "scripts": {
     "start": "webpack && node server",
     "webpack-dev-server": "webpack-dev-server --content-base app/",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./node_modules/jasmine-node/bin/jasmine-node spec"
   },
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "angular": "^1.5.8",
     "css-loader": "^0.25.0",
     "express": "^4.14.0",
+    "jasmine-node": "^1.14.5",
     "node-sass": "^3.10.1",
     "sass-loader": "^4.0.2",
     "style-loader": "^0.13.1"
