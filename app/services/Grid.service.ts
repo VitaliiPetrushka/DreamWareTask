@@ -4,30 +4,28 @@ const GridService = {
 };
 
 function GridServiceController($http, LogService) {
-   const DataTypes = { Int: "number", String: "string", Date: "Date" };
-   interface User {
-      _id: number;
-      login: string;
-      birthdate: Date;
-      age: number;
-   }
 
+   //cat be any of structure
    var dataFormats = [
-      {Name: "Login", DataType: DataTypes.String, IsRequired: true},
-      {Name: "BirthDate", DataType: DataTypes.Date, IsRequired: true},
-      {Name: "Age", DataType: DataTypes.Int, IsRequired: false, CalculateFrom: ["BirthDate"], Calculate: this.calculate_age}
-   ];
-   var data = [
-      {_id: 1, login: "User1", birthdate: new Date("1996/03/14"), age: 20},
-      {_id: 2, login: "User2", birthdate: new Date("1995/11/10"), age: 21},
-      {_id: 3, login: "User3", birthdate: new Date("1996/10/05"), age: 20}
+      {Name: "Login", DataType: "string", IsRequired: true},
+      {Name: "BirthDate", DataType: "Date", IsRequired: true},
+      {Name: "Age", DataType: "number", IsRequired: false}
    ];
 
-   this.getUsers = function():Array<User> {
+   var data = [
+      {_id: 1, Login: "User1", BirthDate: new Date("1996/03/14"), Age: 20},
+      {_id: 2, Login: "User2", BirthDate: new Date("1995/11/10"), Age: 21},
+      {_id: 3, Login: "User3", BirthDate: new Date("1996/10/05"), Age: 20}
+   ];
+
+   this.getData = function() {
       //API call: $http.get(url);
-      return data;
+      return {
+         dataFormats,
+         data
+      };
    };
-   this.addUser = function(user: User):void {
+   this.addNewField = function(user):void {
       if(user) {
          data.push(user);
          //API call: $http.post(url, body);
@@ -35,7 +33,7 @@ function GridServiceController($http, LogService) {
          LogService.error("add new user error");
       }
    };
-   this.deleteUser = function(id: number):void {
+   this.deleteField = function(id: number):void {
       if(LogService.confirm()) {
          //API call: $http.delete(url);
          data.forEach((value, index, arr) => {
@@ -43,7 +41,7 @@ function GridServiceController($http, LogService) {
          });
       }
    };
-   this.modifyUser = function(_id:number, user: User):void {
+   this.modifyField = function(_id:number, user):void {
       //API call: $http.put(url, body);
    };
    this.calculate_age = function(birthdate:string):number {

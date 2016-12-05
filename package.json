@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack && node server",
-    "webpack-dev-server": "webpack-dev-server --content-base app/",
+    "dev": "webpack-dev-server --hot --inline --content-base app/",
     "test": "node ./node_modules/jasmine-node/bin/jasmine-node spec"
   },
   "repository": {

@@ -9,22 +9,22 @@ function GridRowFunction() {
       controller: GridRowController,
       controllerAs: "$rowCtrl",
       bindToController: {
-         user: "<"
+         data_field: "<"
       },
    }
 }
 
 function GridRowController(GridService) {
 
-   this.editing_user = false;
-   this.edit = ():void => { this.editing_user = true; };
+   this.editing_field = false;
+   this.edit = ():void => { this.editing_field = true; };
    this.applyEdit = ():void => {
       GridService.modifyUser();
-      this.editing_user = false;
+      this.editing_field = false;
    };
-   this.cancelEditing = ():void => { this.editing_user = false; };
-   this.delUser = ():void => {
-      GridService.deleteUser(this.user._id);
+   this.cancelEditing = ():void => { this.editing_field = false; };
+   this.delField = ():void => {
+      GridService.deleteUser(this.data_field._id);
    };
 }
 

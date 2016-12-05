@@ -3,22 +3,23 @@
    <table class="table table-striped">
       <thead>
          <tr>
-            <th>Login</th>
-            <th>Birth date</th>
-            <th>Age</th>
+            <th ng-repeat="data_format in $ctrl.data.dataFormats">{{data_format.Name}}</th>
             <th>Actions</th>
          </tr>
       </thead>
       <tbody>
-         <tr ng-repeat="user in $ctrl.users" grid-row user="user">
-            <td><span ng-hide="$rowCtrl.editing_user">{{user.login}}</span><input class="form-control" type="text" ng-show="$rowCtrl.editing_user" value="{{$rowCtrl.user.login}}"></td>
-            <td><span ng-hide="$rowCtrl.editing_user">{{user.birthdate.toDateString()}}</span><input class="form-control" type="text" ng-show="$rowCtrl.editing_user" value="{{$rowCtrl.user.birthdate.toDateString()}}"></td>
-            <td><span ng-hide="$rowCtrl.editing_user">{{user.age}}</span><input class="form-control" type="text" ng-show="$rowCtrl.editing_user" value="{{$rowCtrl.user.age}}"></td>
+         <tr ng-repeat="data_row in $ctrl.data.data" grid-row data_field="data_row">
+            <td ng-repeat="data_format in $ctrl.data.dataFormats">
+              <span ng-hide="$rowCtrl.editing_field">{{data_row[data_format.Name]}}</span>
+              <input class="form-control" type="text" ng-show="$rowCtrl.editing_field" value="{{$rowCtrl.data_field[data_format.Name]}}">
+            </td>
+            <!--<td><span ng-hide="$rowCtrl.editing_user">{{user.birthdate.toDateString()}}</span><input class="form-control" type="text" ng-show="$rowCtrl.editing_user" value="{{$rowCtrl.user.birthdate.toDateString()}}"></td>-->
+            <!--<td><span ng-hide="$rowCtrl.editing_user">{{user.age}}</span><input class="form-control" type="text" ng-show="$rowCtrl.editing_user" value="{{$rowCtrl.user.age}}"></td>-->
             <td>
-               <button ng-hide="$rowCtrl.editing_user" class="btn btn-primary btn-sm" ng-click="$rowCtrl.edit()">Edit</button>
-               <button ng-show="$rowCtrl.editing_user" class="btn btn-success btn-sm" ng-click="$rowCtrl.applyEdit()">Accept</button>
-               <button ng-hide="$rowCtrl.editing_user" class="btn btn-danger btn-sm" ng-click="$rowCtrl.delUser()">Delete</button>
-               <butto ng-show="$rowCtrl.editing_user" class="btn btn-danger btn-sm" ng-click="$rowCtrl.cancelEditing()">Cancel</butto>
+               <button ng-hide="$rowCtrl.editing_field" class="btn btn-primary btn-sm" ng-click="$rowCtrl.edit()">Edit</button>
+               <button ng-show="$rowCtrl.editing_field" class="btn btn-success btn-sm" ng-click="$rowCtrl.applyEdit()">Accept</button>
+               <button ng-hide="$rowCtrl.editing_field" class="btn btn-danger btn-sm" ng-click="$rowCtrl.delField()">Delete</button>
+               <button ng-show="$rowCtrl.editing_field" class="btn btn-danger btn-sm" ng-click="$rowCtrl.cancelEditing()">Cancel</button>
             </td>
          </tr>
       </tbody>
@@ -26,32 +27,37 @@
 
    <div id="add-user-panel">
       <form name="user_form" novalidate>
-         <div class="row" ng-show="$ctrl.adding_user">
-            <div class="col-md-6">
-               <div class="form-group" ng-class="{
-               'has-success': user_form.login.$valid && user_form.login.$dirty,
-               'has-error':user_form.login.$invalid && user_form.login.$dirty
-               }">
-                  <label for="new-login" class="control-label">Your login</label>
-                  <input type="text" class="form-control" id="new-login" placeholder="Login" name="login" ng-model="$ctrl.newUser.login" required>
-                  <div ng-show="user_form.login.$error.required && user_form.login.$dirty" class="error-message">This field is required</div>
+         <div class="row" ng-show="$ctrl.adding_data">
+            <div class="col-md-6" ng-repeat="data_format in $ctrl.data.dataFormats">
+               <div class="form-group">
+                  <label class="control-label">Your {{data_format.Name}}</label>
+                  <input type="text" class="form-control" placeholder="{{data_format.Name}}" name="{{data_format.Name.toLowerCase()}}" ng-model="$ctrl.newUser.login" required>
+                  <!--<div
+                      ng-show="user_form.(data_format.Name.toLowerCase()).$error.required
+                      && user_form..$dirty" class="error-message">
+                    This field is required
+                  </div>-->
                </div>
             </div>
-            <div class="col-md-6">
+            <!--<div class="col-md-6">
                <div class="form-group" ng-class="{
                'has-success':user_form.birthdate.$valid && user_form.birthdate.$dirty,
                'has-error':user_form.birthdate.$invalid && user_form.birthdate.$dirty
                }">
                   <label for="new-birthdate" class="control-label">Your Birth date</label>
                   <input type="text" class="form-control" id="new-birthdate" placeholder="Birth date" name="birthdate" ng-model="$ctrl.newUser.birthdate" required ng-pattern="/^\d{4}\/(0[1-9]|1[0-2])\/(0[1-9]|[1-2][0-9]|3[0-1])$/">
-                  <div ng-show="user_form.birthdate.$error.required && user_form.birthdate.$dirty" class="error-message">This field is required</div>
-                  <div ng-show="user_form.birthdate.$error.pattern && user_form.birthdate.$dirty" class="error-message">Input date in the next format yyyy/mm/dd</div>
+                  <div ng-show="user_form.birthdate.$error.required && user_form.birthdate.$dirty" class="error-message">
+                    This field is required
+                  </div>
+                  <div ng-show="user_form.birthdate.$error.pattern && user_form.birthdate.$dirty" class="error-message">
+                    Input date in the next format yyyy/mm/dd
+                  </div>
                </div>
-            </div>
+            </div>-->
          </div>
          <div class="action-panel clearfix">
-            <button ng-show="$ctrl.adding_user" class="btn btn-danger pull-right" ng-click="$ctrl.cancelAddNewUser()">Cancel</button>
-            <button class="btn btn-success pull-right" id="add-user-button" ng-click="$ctrl.addNewUser(user_form.$valid)">Add</button>
+            <button ng-show="$ctrl.adding_data" class="btn btn-danger pull-right" ng-click="$ctrl.cancelAddNewField()">Cancel</button>
+            <button class="btn btn-success pull-right" id="add-user-button" ng-click="$ctrl.addNewField(user_form.$valid)">Add</button>
          </div>
       </form>
    </div>

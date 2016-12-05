@@ -7,23 +7,23 @@ const Grid = {
 };
 
 function GridController(GridService, LogService) {
-   this.newUser = {};
-   this.users = GridService.getUsers();
-   this.adding_user = false;
-   this.addNewUser = (valid):void => {
+   this.newField = {};
+   this.data = GridService.getData();
+   this.adding_data = false;
+   this.addNewField = (valid):void => {
       //noinspection RedundantIfStatementJS
-      if(this.adding_user && valid) {
-         this.newUser._id = this.users[this.users.length - 1]._id + 1;
-         this.newUser.age = GridService.calculate_age(this.newUser.birthdate);
-         this.newUser.birthdate = new Date(this.newUser.birthdate);
-         GridService.addUser(this.newUser);
-         this.adding_user = false;
-         this.newUser = {};
+      if(this.adding_data && valid) {
+         this.newField._id = this.data[this.data.length - 1]._id + 1;
+         this.newField.age = GridService.calculate_age(this.newField.birthdate);
+         this.newField.birthdate = new Date(this.newField.birthdate);
+         GridService.addUser(this.newField);
+         this.adding_data = false;
+         this.newField = {};
       } else {
-         this.adding_user = true;
+         this.adding_data = true;
       }
    };
-   this.cancelAddNewUser = ():void => { this.newUser = {}; this.adding_user = false; }
+   this.cancelAddNewField = ():void => { this.newField = {}; this.adding_data = false; }
 }
 
 GridController.$inject = ["GridService", "LogService"];
