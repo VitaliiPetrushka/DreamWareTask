@@ -6,14 +6,30 @@
   margin-top: 50px;
   border: 1px solid #ddd;
 }
+.table thead {
+  tr th{
+    width: calc(100% / 4);
+    &:last-child {
+      text-align: right;
+    }
+  }
+}
 .table tbody {
-  &>tr {
-    &>td{
+  & > tr {
+    & > td{
       vertical-align: middle;
+      width: calc(100% / 4);
+      &:last-child {
+        text-align: right;
+      }
     }
   }
 }
 
 #add-user-button {
   margin-right: 5px;
+}
+
+.form-control {
+  height: 30px;
 }

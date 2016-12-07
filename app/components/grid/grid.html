@@ -10,8 +10,8 @@
       <tbody>
          <tr ng-repeat="data_row in $ctrl.data" grid-row field="data_row">
             <td ng-repeat="data_format in $ctrl.dataFormats">
-              <span ng-hide="$rowCtrl.editing_field">{{data_row[data_format.Name]}}</span>
-              <input class="form-control" type="text" ng-show="$rowCtrl.editing_field" value="{{$rowCtrl.data_field[data_format.Name]}}">
+              <span ng-hide="$rowCtrl.editing_field">{{data_row[data_format.Name].toString()}}</span>
+              <input class="form-control" type="text" ng-show="$rowCtrl.editing_field" value="{{$rowCtrl.field[data_format.Name]}}">
             </td>
             <!--<td><span ng-hide="$rowCtrl.editing_user">{{user.birthdate.toDateString()}}</span><input class="form-control" type="text" ng-show="$rowCtrl.editing_user" value="{{$rowCtrl.user.birthdate.toDateString()}}"></td>-->
             <!--<td><span ng-hide="$rowCtrl.editing_user">{{user.age}}</span><input class="form-control" type="text" ng-show="$rowCtrl.editing_user" value="{{$rowCtrl.user.age}}"></td>-->
