@@ -25,9 +25,9 @@ function GridServiceController($http, LogService) {
          data
       };
    };
-   this.addNewField = function(user):void {
-      if(user) {
-         data.push(user);
+   this.addNewField = function(field):void {
+      if(field) {
+         data.push(field);
          //API call: $http.post(url, body);
       } else {
          LogService.error("add new user error");
@@ -44,9 +44,9 @@ function GridServiceController($http, LogService) {
    this.modifyField = function(_id:number, user):void {
       //API call: $http.put(url, body);
    };
-   this.calculate_age = function(birthdate:string):number {
-      return Math.floor((Date.now() - new Date(birthdate).getTime()) / (1000 * 3600 * 24 * 365));
-   };
+   //this.calculate_age = function(birthdate:string):number {
+   //   return Math.floor((Date.now() - new Date(birthdate).getTime()) / (1000 * 3600 * 24 * 365));
+   //};
 }
 
 GridServiceController.$inject = ["$http", "LogService"];

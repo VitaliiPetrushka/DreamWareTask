@@ -1,11 +1,14 @@
 var path = require("path");
+var webpack = require("webpack");
 
 module.exports = {
-   entry: path.join(__dirname, "app/index.ts"),
+   entry: {
+      index: [path.normalize(path.join(__dirname, "app/index.ts"))]
+   },
    output: {
       path: path.join(__dirname, "app/"),
       publicPath: "/app/",
-      filename: "bundle.js"
+      filename: "[name].js"
    },
    module: {
       loaders: [
@@ -25,6 +28,9 @@ module.exports = {
             loaders: ["style", "css", "sass"]
          }
       ]
+   },
+   resolve: {
+      extensions: ['', '.ts', '.tsx', '.js']
    },
    devtool: "eval"
 };
